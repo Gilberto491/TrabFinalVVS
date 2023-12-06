@@ -1,0 +1,28 @@
+name: Testes Spring Boot
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v2
+
+    - name: Configurar Java 17
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '17'
+
+    - name: Build com Maven
+      run: |
+        chmod +x mvnw
+        ./mvnw clean install
+
+    - name: Rodar Testes
+      run: ./mvnw test
